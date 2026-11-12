@@ -1,56 +1,79 @@
-# Welcome to your Expo app 👋
+# Habit App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile app for building better habits. Create habits, check them off each day,
+look back at your history, and get reminders at the times that work for you.
+All data stays on your device.
 
-## Get started
+> 🚧 **Status:** In early development, built step by step as a learning project.
 
-1. Install dependencies
+## Planned Features
 
-   ```bash
+- Create, edit, and delete habits
+- Daily check-off for each habit
+- History log of past days
+- Optional notes on a habit for a specific day
+- Local reminders (Morning, Afternoon, and/or Night)
+
+## Tech Stack
+
+- [Expo](https://expo.dev) SDK 58
+- React Native
+- TypeScript
+- Expo Router (file-based navigation)
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org) 22 or newer
+- [Git](https://git-scm.com)
+- A free [Expo account](https://expo.dev/signup)
+- The **Expo Go** app on your phone ([iOS](https://apps.apple.com/app/expo-go/id982107779) / [Android](https://play.google.com/store/apps/details?id=host.exp.exponent)), signed in to your Expo account
+
+### Running the App
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/TaylorCammisa/habit-app.git
+   ```
+2. Move into the project folder:
+   ```
+   cd habit-app
+   ```
+3. Install dependencies:
+   ```
    npm install
    ```
-
-2. Start the app
-
-   ```bash
+4. Log in to Expo (use the same account as in Expo Go):
+   ```
+   npx expo login
+   ```
+5. Start the development server:
+   ```
    npx expo start
    ```
+6. Open Expo Go on your phone and tap **habit-app** under **Development Servers**.
 
-In the output, you'll find options to open the app in a
+> **Tip:** Your phone and computer must be on the same Wi-Fi network.
+> If the app doesn't appear in Expo Go, scan the QR code shown in the terminal:
+> on **Android**, use the scanner in Expo Go; on **iPhone**, use the Camera app.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/
+├── app/          # Screens and navigation (Expo Router: every file is a route)
+├── components/   # Reusable UI components (buttons, cards, habit rows)
+├── theme/        # Design tokens: colors, typography, spacing
+├── hooks/        # Custom React hooks that connect the UI to data
+├── data/         # Storage layer: the only code that reads or writes saved data
+├── utils/        # Pure logic with no UI (date helpers, streak calculations)
+└── types/        # Shared TypeScript types
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Folders are created as they're needed, so not all of them exist yet.
 
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Dependency rule:** code only imports from layers below it. Screens can use
+components and hooks; hooks can use `data/` and `utils/`; `data/` and `utils/`
+never import UI code. This keeps the business logic easy to test and the
+storage layer easy to change.
